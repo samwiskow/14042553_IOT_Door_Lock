@@ -14,8 +14,7 @@ import com.phidget22.PhidgetException;
 	        	Access.setChannel(channel);
 	        	Access.open(2000);
 	        	Access.setState(lightState);
-	        	Thread.sleep(4000);
-	        	Access.setState(false);
+	        	Thread.sleep(3000);
 	        	Access.close();
 			} catch (PhidgetException | InterruptedException e) {
 				e.printStackTrace();

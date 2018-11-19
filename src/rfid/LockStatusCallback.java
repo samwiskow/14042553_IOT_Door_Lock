@@ -3,14 +3,15 @@ package rfid;
 
 import org.eclipse.paho.client.mqttv3.*;
 
+import common.MqttSettings;
+
 
 public class LockStatusCallback implements MqttCallback {
 
-    public static final String userid = "14042553"; // change this to be your student-id
-
+	MqttSettings uuid = MqttSettings.USER;
+	
     @Override
     public void connectionLost(Throwable cause) {
-        //This is called when the connection is lost. We could reconnect here.
     }
 
     @Override
@@ -19,16 +20,14 @@ public class LockStatusCallback implements MqttCallback {
         DoorAccessIndicator access = new DoorAccessIndicator();
         String messageStr = message.toString();
         if(messageStr.contains("accepted")){
+        	System.out.println("DEBUG : LIGHT Accepted");
         	access.turnOnLight(true, 1);
-        	Thread.sleep(3000);
-        	//access.turnOnLight(false, 1);
         } else{
-        	access.turnOnLight(true, 0);
-        	Thread.sleep(3000);
-        	access.turnOnLight(false, 0);
+        	System.out.println("DEBUG : LIGHT REJECTED");
+        	access.turnOnLight(true, 2);
         }
 
-        if ((userid+"/LWT").equals(topic)) {
+        if ((uuid.getSetting()+"/LWT").equals(topic)) {
             System.err.println("Sensor gone!");
         }
     }

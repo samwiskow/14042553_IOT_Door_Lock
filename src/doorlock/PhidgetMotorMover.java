@@ -16,10 +16,10 @@ import mqtt.utils.Utils;
 public class PhidgetMotorMover {
 	// Singleton implementation to allow multiple callbacks to the code
 	static RCServo servo = null;
-	private static PhidgetMotorMover instance = null;
+	public static PhidgetMotorMover instance = null;
 
 	   public static RCServo getInstance() {
-		  System.out.println("In singleton constructor");
+		  //System.out.println("DEBUG: In singleton constructor");
 	      if(servo == null) {
 	         servo = PhidgetMotorMover();
 	      }
@@ -60,8 +60,11 @@ public class PhidgetMotorMover {
 		} catch (PhidgetException e) {
 			e.printStackTrace();
 		}
+		
 //	        moveServoTo(0);
 //	        System.out.println("Motor initially positioned at: 0");
+		
+		
         return servo;
 	}               
 
@@ -69,17 +72,17 @@ public class PhidgetMotorMover {
         try {
         		// Get the servo that is available
         		PhidgetMotorMover.getInstance();
+        		System.out.println("Serial number : " + servo.getDeviceSerialNumber());
         		System.out.println("moving to "+motorPosition);
         		servo.setMaxPosition(210.0);
-			servo.setTargetPosition(motorPosition);
-			servo.setEngaged(true);
+        		servo.setTargetPosition(motorPosition);
+        		servo.setEngaged(true);
 		} catch (PhidgetException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	
-	
+
 	
 	
 }

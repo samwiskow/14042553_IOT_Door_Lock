@@ -5,13 +5,14 @@ import org.eclipse.paho.client.mqttv3.*;
 import com.google.gson.Gson;
 
 import common.PubSubClient;
+import common.Topic;
 import controller.DBUtils;
 import mqtt.utils.Utils;
 
 
 public class MotorSubscribeCallback implements MqttCallback {
 
-    public static final String userid = "14042553"; // change this to be your student-id
+    Topic userid = Topic.UUID; // change this to be your student-id
     Gson gson = new Gson();
     PubSubClient pub;
     
@@ -34,13 +35,14 @@ public class MotorSubscribeCallback implements MqttCallback {
     	   // Move motor to open, then shut after pausing
            PhidgetMotorMover.moveServoTo(180);
            System.out.println("Waiting until motor at position " + 180);
-           pub.publish("unlocked", "lockstatus");
+           pub.publish("unlocked", String.valueOf(PhidgetMotorMover.getInstance().getDeviceSerialNumber()) + "/status");
            Utils.waitFor(5);
            PhidgetMotorMover.moveServoTo(0.0);
            Utils.waitFor(2);
+           pub.publish("locked", String.valueOf(PhidgetMotorMover.getInstance().getDeviceSerialNumber()) + "/status");
        }
         
-        if ((userid+"/LWT").equals(topic)) {
+        if ((userid.getTopic()+"/LWT").equals(topic)) {
             System.err.println("Sensor gone!");
         }
     }
@@ -49,4 +51,5 @@ public class MotorSubscribeCallback implements MqttCallback {
     public void deliveryComplete(IMqttDeliveryToken token) {
         //no-op
     }
+    
 }

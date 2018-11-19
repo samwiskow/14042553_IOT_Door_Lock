@@ -1,97 +1,154 @@
 package common;
 
+import java.sql.Date;
+
 public class SensorData {
 	
-	String sensorname;
-	String sensorvalue;
-	String userid;
-	double longitude;
-	double latitude;
-	String sensordate;
-	Boolean accessrequest;
+	String tagid, rfidserialnum, name, servoserialnum;
+	int roomid, userid;
+	Boolean result;
+	Date timestamp;
 
-	public SensorData(String sensorname, String sensorvalue, String userid, double longitude, double latitude,
-			String sensordate) {
-		super();
-		this.sensorname = sensorname;
-		this.sensorvalue = sensorvalue;
-		this.userid = userid;
-		this.longitude = longitude;
-		this.latitude = latitude;
-		this.sensordate = sensordate;
+	public SensorData(String tagid, String serialnum) {
+		this.tagid = tagid;
+		this.rfidserialnum = serialnum;
+		this.name = "unknown";
+		this.servoserialnum = "unknown";
+		this.result = false;
+		this.timestamp = null;
 	}
 
 	// Constructors depending on which parameters are known
-	public SensorData(String sensorname, String sensorvalue, String userid) {
-		super();
-		this.sensorname = sensorname;
-		this.sensorvalue = sensorvalue;
+	public SensorData(String tagid, String rfidserialnum, String name, String servoserialnum, int roomid, int userid, Boolean result) {
+		this.tagid = tagid;
+		this.rfidserialnum = rfidserialnum;
+		this.name = name;
+		this.servoserialnum = servoserialnum;
+		this.roomid = roomid;
 		this.userid = userid;
-		// Defaults for when no location known
-		this.longitude = 2.2386;
-		this.latitude = 53.4708;
-		this.sensordate = "unknown";
+		this.result = false;
+		this.timestamp = null;
 	}
-	public SensorData(String sensorname, String sensorvalue) {
-		super();
-		this.sensorname = sensorname;
-		this.sensorvalue = sensorvalue;
-		// Defaults for when no userid or location known
-		this.userid = "unknown";
-		this.longitude = 2.2386;
-		this.latitude = 53.4708;
-		this.sensordate = "unknown";
+	
+	public SensorData(String name, int userid, int roomid, boolean result, Date timestamp){
+		this.name = name;
+		this.userid = userid;
+		this.roomid = roomid;
+		this.result = result;
+		this.timestamp = timestamp;
+	}
+	
+	
+	/**
+	 * @return the tagid
+	 */
+	public String getTagid() {
+		return tagid;
 	}
 
-	public String getSensorname() {
-		return sensorname;
+	/**
+	 * @param tagid the tagid to set
+	 */
+	public void setTagid(String tagid) {
+		this.tagid = tagid;
 	}
-	public void setSensorname(String sensorname) {
-		this.sensorname = sensorname;
+
+	/**
+	 * @return the rfidserialnum
+	 */
+	public String getRfidserialnum() {
+		return rfidserialnum;
 	}
-	public String getSensorvalue() {
-		return sensorvalue;
+
+	/**
+	 * @param rfidserialnum the rfidserialnum to set
+	 */
+	public void setRfidserialnum(String rfidserialnum) {
+		this.rfidserialnum = rfidserialnum;
 	}
-	public void setSensorvalue(String sensorvalue) {
-		this.sensorvalue = sensorvalue;
+
+	/**
+	 * @return the name
+	 */
+	public String getName() {
+		return name;
 	}
-	public String getUserid() {
+
+	/**
+	 * @param name the name to set
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	/**
+	 * @return the servoserialnum
+	 */
+	public String getServoserialnum() {
+		return servoserialnum;
+	}
+
+	/**
+	 * @param servoserialnum the servoserialnum to set
+	 */
+	public void setServoserialnum(String servoserialnum) {
+		this.servoserialnum = servoserialnum;
+	}
+
+	/**
+	 * @return the roomid
+	 */
+	public int getRoomid() {
+		return roomid;
+	}
+
+	/**
+	 * @param roomid the roomid to set
+	 */
+	public void setRoomid(int roomid) {
+		this.roomid = roomid;
+	}
+
+	/**
+	 * @return the userid
+	 */
+	public int getUserid() {
 		return userid;
 	}
-	public void setUserid(String userid) {
+
+	/**
+	 * @param userid the userid to set
+	 */
+	public void setUserid(int userid) {
 		this.userid = userid;
 	}
-	public double getLongitude() {
-		return longitude;
-	}
-	public void setLongitude(double longitude) {
-		this.longitude = longitude;
-	}
-	public double getLatitude() {
-		return latitude;
-	}
-	public void setLatitude(double latitude) {
-		this.latitude = latitude;
-	}
-	public String getSensordate() {
-		return sensordate;
-	}
-	public void setSensordate(String sensorvalue) {
-		this.sensordate = sensorvalue;
-	}
-	public void setAccessrequest(Boolean value){
-		this.accessrequest = value;
-	}
-	public Boolean getAccessrequest(){
-		return accessrequest;
+
+	/**
+	 * @return the result
+	 */
+	public Boolean getResult() {
+		return result;
 	}
 
-	@Override
-	public String toString() {
-		return "SensorData [sensorname=" + sensorname + ", sensorvalue=" + sensorvalue + ", userid=" + userid
-				+ ", longitude=" + longitude + ", latitude=" + latitude + ", sensordate=" + sensordate + "]";
+	/**
+	 * @param result the result to set
+	 */
+	public void setResult(Boolean result) {
+		this.result = result;
 	}
-	
-	
+
+	/**
+	 * @return the timestamp
+	 */
+	public Date getTimestamp() {
+		return timestamp;
+	}
+
+	/**
+	 * @param timestamp the timestamp to set
+	 */
+	public void setTimestamp(Date timestamp) {
+		this.timestamp = timestamp;
+	}
 	
 }

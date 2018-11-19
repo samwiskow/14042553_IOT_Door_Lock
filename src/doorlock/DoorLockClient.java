@@ -1,16 +1,25 @@
 package doorlock;
 
+import com.phidget22.PhidgetException;
+import common.MqttSettings;
 import common.PubSubClient;
 
 public class DoorLockClient {
 
 	public DoorLockClient() {
-		// TODO Auto-generated constructor stub
 	}
 	
 	public static void main(String... args){
-		PubSubClient doorLock = new PubSubClient("tcp://iot.eclipse.org:1883","14042553");
-		doorLock.subscribe("doorlock", new MotorSubscribeCallback(doorLock));
+		MqttSettings uuid = MqttSettings.USER;
+	    MqttSettings broker = MqttSettings.BROKER;
+		PubSubClient doorLock = new PubSubClient(broker.getSetting(), uuid.getSetting());
+		try {
+			doorLock.subscribe(String.valueOf(PhidgetMotorMover.getInstance().getDeviceSerialNumber()), new MotorSubscribeCallback(doorLock));
+		} catch (PhidgetException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 
 }
